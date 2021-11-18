@@ -25,7 +25,7 @@ with col3:
 
 
 with dataset : 
-	df_knn = pd.read_csv('/Users/Paul/Desktop/projet_netflix/df_final_knn_3.csv')
+	df_knn = pd.read_csv('./df_final_knn_3.csv') #/Users/Paul/Desktop/projet_netflix
 	#st.write(df_knn.head())
 
 with recommandation_movie :
