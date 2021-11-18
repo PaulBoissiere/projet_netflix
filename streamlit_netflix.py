@@ -19,7 +19,7 @@ with header:
 with col1:
 	st.write("")
 with col2:
-	st.image('projet_netflix/imdb.svg.png') #/Users/Paul/Desktop/
+	st.image('/Users/Paul/Desktop/projet_netflix/imdb.svg.png') #
 with col3:
 	st.write("")
 
