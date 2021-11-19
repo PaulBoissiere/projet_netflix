@@ -65,13 +65,13 @@ with recommandation_movie :
 		if df_scaled[df_scaled['title'].str.contains(movie)].shape[0] > 1:
 			st.write("Plusieurs films contiennent ce nom, choisissez un index parmis l'un d'eux : ")
 			multiple_index = df_knn[df_knn['title'].str.contains(movie)]
-			return multiple_index[['title', 'averageRating', 'decade', 'primaryName', 'genres', 'poster_url']]
+			return multiple_index[['title', 'decade', 'primaryName', 'genres', 'poster_url']]
 
 		else:
 			model_film = NearestNeighbors(metric = 'wminkowski', n_neighbors=10, metric_params = {"w": weights}).fit(X_scaled)
 			index_reco = model_film.kneighbors(df_scaled.loc[df_scaled['title'].str.contains(movie), X.columns])        
 			recommended_movie = df_knn.iloc[df_knn.index.searchsorted(index_reco[1][0][0:9])]
-			return recommended_movie[['title', 'averageRating', 'decade', 'primaryName', 'genres', 'poster_url']]
+			return recommended_movie[['title', 'decade', 'primaryName', 'genres', 'poster_url']]
 			#return st.image(recommandation2(movie).iloc[0,2])
 			
 			
@@ -91,7 +91,7 @@ with recommandation_movie :
 			model_film = NearestNeighbors(metric = 'wminkowski', n_neighbors=10, metric_params = {"w": weights}).fit(X_scaled)
 			index_reco_2 = model_film.kneighbors(df_scaled.loc[df_scaled.index.isin([index]), X.columns])        
 			recommended_movie_2 = df_knn.iloc[df_knn.index.searchsorted(index_reco_2[1][0][0:9])]
-			return recommended_movie_2[['title', 'averageRating', 'decade', 'primaryName', 'genres', 'poster_url']]
+			return recommended_movie_2[['title', 'decade', 'primaryName', 'genres', 'poster_url']]
 	
 	
 	#if len(index) > 1:
