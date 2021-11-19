@@ -70,7 +70,7 @@ with recommandation_movie :
 		else:
 			model_film = NearestNeighbors(metric = 'wminkowski', n_neighbors=10, metric_params = {"w": weights}).fit(X_scaled)
 			index_reco = model_film.kneighbors(df_scaled.loc[df_scaled['title'].str.contains(movie), X.columns])        
-			recommended_movie = df_knn.iloc[df_knn.index.isin(index_reco[1][0][0:9])]
+			recommended_movie = df_knn.iloc[df_knn.index.searchsorted(index_reco[1][0][0:9])]
 			return recommended_movie[['title', 'decade', 'primaryName', 'genres', 'poster_url']]
 			#return st.image(recommandation2(movie).iloc[0,2])
 			
