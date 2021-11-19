@@ -70,17 +70,17 @@ with recommandation_movie :
 		else:
 			model_film = NearestNeighbors(metric = 'wminkowski', n_neighbors=10, metric_params = {"w": weights}).fit(X_scaled)
 			index_reco = model_film.kneighbors(df_scaled.loc[df_scaled['title'].str.contains(movie), X.columns])        
-			recommended_movie = df_knn.iloc[df_knn.index.isin(index_reco[1][0][1:9])]
+			recommended_movie = df_knn.iloc[df_knn.index.isin(index_reco[1][0][0:9])]
 			return recommended_movie[['title', 'decade', 'primaryName', 'genres', 'poster_url']]
 			#return st.image(recommandation2(movie).iloc[0,2])
 			
 			
 	
 	if (df_scaled[df_scaled['title'].str.contains(movie)].shape[0] > 1) is False:	
-		if pd.isnull(recommandation2(movie).iloc[0,4]):
+		if pd.isnull(recommandation2(movie).iloc[1,4]):
 			st.write(recommandation2(movie))
-		elif pd.notnull(recommandation2(movie).iloc[0,4]):
-			st.image(recommandation2(movie).iloc[0,4], width=300)
+		elif pd.notnull(recommandation2(movie).iloc[1,4]):
+			st.image(recommandation2(movie).iloc[1,4], width=300)
 			st.write(recommandation2(movie))
 	else:
 		st.write(recommandation2(movie))
@@ -90,7 +90,7 @@ with recommandation_movie :
 	def index_recommandation(index):
 			model_film = NearestNeighbors(metric = 'wminkowski', n_neighbors=10, metric_params = {"w": weights}).fit(X_scaled)
 			index_reco_2 = model_film.kneighbors(df_scaled.loc[df_scaled.index.isin([index]), X.columns])        
-			recommended_movie_2 = df_knn.iloc[df_knn.index.isin(index_reco_2[1][0][1:9])]
+			recommended_movie_2 = df_knn.iloc[df_knn.index.isin(index_reco_2[1][0][0:9])]
 			return recommended_movie_2[['title', 'decade', 'primaryName', 'genres', 'poster_url']]
 	
 	
@@ -98,8 +98,8 @@ with recommandation_movie :
 		#st.write(index_recommandation(index).iloc[0,2])
 
 
-	if (len(index)>=1) and pd.notnull(index_recommandation(index).iloc[0,4]):
-		st.image(index_recommandation(index).iloc[0,4], width=300)
+	if (len(index)>=1) and pd.notnull(index_recommandation(index).iloc[1,4]):
+		st.image(index_recommandation(index).iloc[1,4], width=300)
 		st.write(index_recommandation(index))
 	elif len(index)>=1: 
 		st.write(index_recommandation(index))
