@@ -98,10 +98,10 @@ with recommandation_movie :
 		#st.write(index_recommandation(index).iloc[0,2])
 
 
-	if (len(index)>1) and pd.notnull(index_recommandation(index).iloc[0,4]):
+	if (len(index)>=1) and pd.notnull(index_recommandation(index).iloc[0,4]):
 		st.image(index_recommandation(index).iloc[0,4], width=300)
 		st.write(index_recommandation(index))
-	elif len(index)>1: 
+	elif len(index)>=1: 
 		st.write(index_recommandation(index))
 
 		
