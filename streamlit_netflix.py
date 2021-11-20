@@ -14,7 +14,7 @@ recommandation_movie = st.container()
 
 with header:
 	st.title("Bienvenue sur notre système de recommandation de films !")
-	st.text('Basé sur la base de données IMDB')
+	st.text('Basé sur la base de données IMDB, et des filtres sur la note moyenne (6.3) et le nombre de votes')
 
 with col1:
 	st.write("")
