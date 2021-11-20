@@ -59,8 +59,8 @@ with recommandation_movie :
 	weights = pd.Series(np.array([3, 1, 2.5, 2.5, 2.5,2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
        0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
        0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]), index = X.columns)
-
-	movie = st.text_input("Quel film avez-vous aimé ?")
+	st.text("Vous pouvez écrire seulement une partie du titre et choisir ensuite via l'index, ex: harry potter, plutôt qu'harry potter et la coupe de feu ")
+	movie = st.text_input("Quel film avez-vous aimé ? (à entrer en minuscule et les accents sont pris en compte)")
 	def recommandation2(movie):
 		try:
 			if df_scaled[df_scaled['title'].str.contains(movie)].shape[0] > 1:
