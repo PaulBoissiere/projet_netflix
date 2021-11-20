@@ -19,13 +19,13 @@ with header:
 with col1:
 	st.write("")
 with col2:
-	st.image('./imdb.svg.png') #/Users/Paul/Desktop/projet_netflix
+	st.image('/Users/Paul/Desktop/projet_netflix/imdb.svg.png') #/Users/Paul/Desktop/projet_netflix
 with col3:
 	st.write("")
 
 
 with dataset : 
-	df_knn = pd.read_csv('./df_final_knn_3.csv') #/Users/Paul/Desktop/projet_netflix
+	df_knn = pd.read_csv('/Users/Paul/Desktop/projet_netflix/df_final_knn_3.csv') #/Users/Paul/Desktop/projet_netflix
 	#st.write(df_knn.head())
 
 with recommandation_movie :
@@ -62,28 +62,35 @@ with recommandation_movie :
 
 	movie = st.text_input("Quel film avez-vous aimé ?")
 	def recommandation2(movie):
-		if df_scaled[df_scaled['title'].str.contains(movie)].shape[0] > 1:
-			st.write("Plusieurs films contiennent ce nom, choisissez un index parmis l'un d'eux : ")
-			multiple_index = df_knn[df_knn['title'].str.contains(movie)]
-			return multiple_index[['title', 'averageRating', 'decade', 'primaryName', 'genres', 'poster_url']]
+		try:
+			if df_scaled[df_scaled['title'].str.contains(movie)].shape[0] > 1:
+				st.write("Plusieurs films contiennent ce nom, choisissez un index parmis l'un d'eux : ")
+				multiple_index = df_knn[df_knn['title'].str.contains(movie)]
+				return multiple_index[['title', 'averageRating', 'decade', 'primaryName', 'genres', 'poster_url']]
 
-		else:
-			model_film = NearestNeighbors(metric = 'wminkowski', n_neighbors=10, metric_params = {"w": weights}).fit(X_scaled)
-			index_reco = model_film.kneighbors(df_scaled.loc[df_scaled['title'].str.contains(movie), X.columns])        
-			recommended_movie = df_knn.iloc[df_knn.index.searchsorted(index_reco[1][0][0:9])]
-			return recommended_movie[['title', 'averageRating', 'decade', 'primaryName', 'genres', 'poster_url']]
+			else:
+				model_film = NearestNeighbors(metric = 'wminkowski', n_neighbors=10, metric_params = {"w": weights}).fit(X_scaled)
+				index_reco = model_film.kneighbors(df_scaled.loc[df_scaled['title'].str.contains(movie), X.columns])        
+				recommended_movie = df_knn.iloc[df_knn.index.searchsorted(index_reco[1][0][0:9])]
+				return recommended_movie[['title', 'averageRating', 'decade', 'primaryName', 'genres', 'poster_url']]
+		except ValueError:
+			st.warning("Le film choisi n'est pas dans notre base de données, certainement pas assez bien noté ..!")
+		except AttributeError:
+			return
 			#return st.image(recommandation2(movie).iloc[0,2])
 			
 			
-	
-	if (df_scaled[df_scaled['title'].str.contains(movie)].shape[0] > 1) is False:	
-		if pd.isnull(recommandation2(movie).iloc[1,5]):
+	try:
+		if (df_scaled[df_scaled['title'].str.contains(movie)].shape[0] > 1) is False:	
+			if pd.isnull(recommandation2(movie).iloc[1,5]):
+				st.write(recommandation2(movie))
+			elif pd.notnull(recommandation2(movie).iloc[1,5]):
+				st.image(recommandation2(movie).iloc[1,5], width=300)
+				st.write(recommandation2(movie))
+		else:
 			st.write(recommandation2(movie))
-		elif pd.notnull(recommandation2(movie).iloc[1,5]):
-			st.image(recommandation2(movie).iloc[1,5], width=300)
-			st.write(recommandation2(movie))
-	else:
-		st.write(recommandation2(movie))
+	except AttributeError:
+		st.write('')
 
 	index = st.text_input("Si nécessaire, quel index avez-vous choisi ?")
 
@@ -103,6 +110,7 @@ with recommandation_movie :
 		st.write(index_recommandation(index))
 	elif len(index)>=1: 
 		st.write(index_recommandation(index))
+
 
 		
 
