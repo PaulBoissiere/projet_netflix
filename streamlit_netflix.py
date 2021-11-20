@@ -19,13 +19,13 @@ with header:
 with col1:
 	st.write("")
 with col2:
-	st.image('/Users/Paul/Desktop/projet_netflix/imdb.svg.png') #/Users/Paul/Desktop/projet_netflix
+	st.image('./imdb.svg.png') #/Users/Paul/Desktop/projet_netflix
 with col3:
 	st.write("")
 
 
 with dataset : 
-	df_knn = pd.read_csv('/Users/Paul/Desktop/projet_netflix/df_final_knn_3.csv') #/Users/Paul/Desktop/projet_netflix
+	df_knn = pd.read_csv('./df_final_knn_3.csv') #/Users/Paul/Desktop/projet_netflix
 	#st.write(df_knn.head())
 
 with recommandation_movie :
